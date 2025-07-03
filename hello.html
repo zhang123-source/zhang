@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>亲爱滴脑婆</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置Tailwind自定义颜色 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            love: {
+              primary: '#FF5E87',
+              secondary: '#FF85A2',
+              accent: '#FFD1DC',
+              light: '#FFF0F3',
+              dark: '#E64A7C'
+            }
+          },
+          fontFamily: {
+            romantic: ['Dancing Script', 'cursive', '微軟正黑體', 'Arial']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- 自定义工具类 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-pulse-slow {
+        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      .bg-gradient-love {
+        background: linear-gradient(135deg, #FF5E87 0%, #FFD1DC 100%);
+      }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+  
+  <!-- 引入字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-love-light min-h-screen overflow-x-hidden">
+  <!-- 粒子背景 -->
+  <div id="particles-js" class="fixed inset-0 z-0 opacity-50"></div>
+  
+  <div class="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
+    <!-- 标题卡片 -->
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full transform transition-all duration-500 hover:scale-105 animate-float">
+      <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-romantic font-bold text-center text-love-primary mb-6">亲爱的<span id="recipient" class="inline-block transition-all duration-300 hover:text-love-dark hover:scale-110">宝贝</span></h1>
+      
+      <div class="relative">
+        <div class="absolute -left-4 top-0 text-love-secondary text-5xl">"</div>
+        <p class="text-[clamp(1.1rem,3vw,1.5rem)] font-romantic text-gray-700 leading-relaxed mb-8 indent-8">
+          脑婆，我爱你呀，下面是写给你的呦！
+        </p>
+        <div class="absolute -right-4 bottom-0 text-love-secondary text-5xl">"</div>
+      </div>
+      
+      <!-- 心形装饰 -->
+      <div class="flex justify-center my-8">
+        <div class="w-12 h-12 bg-love-primary transform rotate-45 relative animate-pulse-slow">
+          <div class="absolute -top-6 left-0 w-12 h-12 bg-love-primary rounded-full"></div>
+          <div class="absolute top-0 -left-6 w-12 h-12 bg-love-primary rounded-full"></div>
+        </div>
+      </div>
+      
+      <p class="text-[clamp(1.1rem,3vw,1.5rem)] font-romantic text-gray-700 leading-relaxed mb-8">
+        每一天有你的陪伴，都是神赐予我的礼物。我想和你一起走过四季，看遍世间美景，共同创造属于我们的回忆。我爱你，不仅是今天，更是未来的每一天。
+      </p>
+      
+      <!-- 签名 -->
+      <div class="text-right">
+        <p class="text-[clamp(1.2rem,3vw,1.8rem)] font-romantic text-love-primary mb-2">爱你的<span id="sender" class="inline-block transition-all duration-300 hover:text-love-dark hover:scale-110">裹裹</span></p>
+        <p class="text-gray-500">2025年7月3日</p>
+      </div>
+    </div>
+    
+    <!-- 互动按钮 -->
+    <div class="mt-12 flex gap-6">
+      <button id="yesBtn" class="bg-love-primary hover:bg-love-dark text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-love-primary focus:ring-opacity-50">
+        <i class="fa fa-heart mr-2"></i>我愿意
+      </button>
+      <button id="noBtn" class="bg-white hover:bg-gray-100 text-love-primary font-bold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-love-primary focus:ring-opacity-50">
+        <i class="fa fa-times mr-2"></i>再考虑
+      </button>
+    </div>
+    
+    <!-- 隐藏的确认消息 -->
+    <div id="confirmation" class="mt-10 bg-white rounded-xl p-6 shadow-lg max-w-md w-full opacity-0 transform scale-95 transition-all duration-500 pointer-events-none">
+      <div class="text-center">
+        <div class="inline-block p-3 rounded-full bg-love-accent mb-4">
+          <i class="fa fa-heart text-love-primary text-3xl"></i>
+        </div>
+        <h2 class="text-xl font-bold text-love-primary mb-2">嘿嘿！</h2>
+        <p class="text-gray-700">么么！</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 页脚 -->
+  <footer class="absolute bottom-4 left-0 right-0 text-center text-gray-500 text-sm">
+    <p>用❤️制作 | 永远爱你</p>
+  </footer>
+
+  <!-- 粒子库 -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
+  <!-- 主脚本 -->
+  <script>
+    // 粒子背景配置
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#FF5E87" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#FF5E87", opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out", bounce: false }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "grab" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        },
+        modes: {
+          grab: { distance: 140, line_linked: { opacity: 0.5 } },
+          push: { particles_nb: 3 }
+        }
+      },
+      retina_detect: true
+    });
+    
+    // 互动按钮逻辑
+    document.getElementById('yesBtn').addEventListener('click', function() {
+      const confirmation = document.getElementById('confirmation');
+      confirmation.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+      confirmation.classList.add('opacity-100', 'scale-100');
+      
+      // 创建爱心雨
+      createHeartRain();
+    });
+    
+    // 调皮的拒绝按钮
+    document.getElementById('noBtn').addEventListener('mouseover', function(e) {
+      // 随机移动按钮位置
+      const x = Math.random() * (window.innerWidth - this.offsetWidth);
+      const y = Math.random() * (window.innerHeight - this.offsetHeight);
+      
+      // 确保按钮不会移出视口
+      x < 20 ? x + 20 : x;
+      y < 20 ? y + 20 : y;
+      
+      this.style.position = 'fixed';
+      this.style.left = `${x}px`;
+      this.style.top = `${y}px`;
+    });
+    
+    // 创建爱心雨
+    function createHeartRain() {
+      const heartContainer = document.createElement('div');
+      heartContainer.style.position = 'fixed';
+      heartContainer.style.top = '0';
+      heartContainer.style.left = '0';
+      heartContainer.style.width = '100%';
+      heartContainer.style.height = '100%';
+      heartContainer.style.pointerEvents = 'none';
+      heartContainer.style.overflow = 'hidden';
+      heartContainer.style.zIndex = '9999';
+      document.body.appendChild(heartContainer);
+      
+      // 创建50个爱心
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          createHeart(heartContainer);
+        }, i * 100);
+      }
+      
+      // 30秒后移除容器
+      setTimeout(() => {
+        heartContainer.remove();
+      }, 30000);
+    }
+    
+    // 创建单个爱心
+    function createHeart(container) {
+      const heart = document.createElement('div');
+      const size = Math.random() * 30 + 20;
+      const left = Math.random() * 100;
+      const delay = Math.random() * 5;
+      const duration = Math.random() * 10 + 5;
+      
+      heart.innerHTML = '<i class="fa fa-heart"></i>';
+      heart.style.position = 'absolute';
+      heart.style.color = `rgb(${Math.random() * 200 + 55}, ${Math.random() * 100 + 55}, ${Math.random() * 100 + 100})`;
+      heart.style.fontSize = `${size}px`;
+      heart.style.left = `${left}%`;
+      heart.style.top = '-50px';
+      heart.style.transform = 'translateX(-50%)';
+      heart.style.opacity = Math.random() * 0.5 + 0.5;
+      heart.style.animation = `heartFall ${duration}s ease-in ${delay}s forwards`;
+      
+      container.appendChild(heart);
+      
+      // 添加动画样式
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes heartFall {
+          0% {
+            top: -50px;
+            transform: translateX(-50%) rotate(0deg);
+          }
+          100% {
+            top: 100vh;
+            transform: translateX(-50%) rotate(720deg);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // 动画结束后移除爱心
+      setTimeout(() => {
+        heart.remove();
+      }, (duration + delay) * 1000);
+    }
+    
+    // 允许用户自定义姓名
+    document.addEventListener('DOMContentLoaded', function() {
+      const recipient = document.getElementById('recipient');
+      const sender = document.getElementById('sender');
+      
+      // 双击编辑姓名
+      recipient.addEventListener('dblclick', function() {
+        editText(this, '输入TA的名字');
+      });
+      
+      sender.addEventListener('dblclick', function() {
+        editText(this, '输入你的名字');
+      });
+    });
+    
+    // 编辑文本函数
+    function editText(element, placeholder) {
+      const text = element.textContent;
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = text;
+      input.placeholder = placeholder;
+      input.className = 'w-full text-center font-romantic text-2xl border-2 border-love-primary rounded p-2 focus:outline-none focus:ring-2 focus:ring-love-primary';
+      
+      element.textContent = '';
+      element.appendChild(input);
+      input.focus();
+      
+      input.addEventListener('blur', function() {
+        if (this.value.trim() === '') {
+          element.textContent = text;
+        } else {
+          element.textContent = this.value;
+        }
+      });
+      
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          this.blur();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+    
